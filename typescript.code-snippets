@@ -1,0 +1,91 @@
+{
+    // ===== React Functional Component =====
+    "React Functional Component": {
+      "prefix": "rfc",
+      "body": [
+        "import React from 'react';",
+        "",
+        "export interface ${1:ComponentName}Props {",
+        "  $2",
+        "}",
+        "",
+        "export function ${1:ComponentName}($3: ${1:ComponentName}Props) {",
+        "  return (",
+        "    <div className='${4:container}'>",
+        "      $5",
+        "    </div>",
+        "  );",
+        "}"
+      ],
+      "description": "Create a typed React functional component with export function syntax"
+    },
+  
+    // ===== Custom Hook =====
+    "React Custom Hook": {
+      "prefix": "rch",
+      "body": [
+        "import { useState, useEffect } from 'react';",
+        "",
+        "export function use${1:HookName}($2) {",
+        "  const [${3:state}, set${4:State}] = useState($5);",
+        "",
+        "  useEffect(() => {",
+        "    $6",
+        "  }, [$7]);",
+        "",
+        "  return { ${3:state}, set${4:State} };",
+        "}"
+      ],
+      "description": "Scaffold a custom React hook with export function syntax"
+    },
+  
+    // ===== Express Route Handler =====
+    "Express Route Handler": {
+      "prefix": "erh",
+      "body": [
+        "import { Router } from 'express';",
+        "",
+        "const router = Router();",
+        "",
+        "export function ${1:register${2:Routes}}() {",
+        "  router.${3:get}('${4:/path}', async (req, res) => {",
+        "    try {",
+        "      $5 // Your logic here",
+        "      res.status(200).json({ success: true });",
+        "    } catch (error) {",
+        "      res.status(500).json({ error: error.message });",
+        "    }",
+        "  });",
+        "  return router;",
+        "}"
+      ],
+      "description": "Express route registration with export function syntax"
+    },
+  
+    // ===== Prisma Model Template =====
+    "Prisma Model": {
+      "prefix": "pm",
+      "body": [
+        "model ${1:ModelName} {",
+        "  id        String   @id @default(cuid())",
+        "  createdAt DateTime @default(now())",
+        "  updatedAt DateTime @updatedAt",
+        "  ${2:field} ${3:String}",
+        "}"
+      ],
+      "description": "Basic Prisma model template"
+    },
+  
+    // ===== Jest Test Block =====
+    "Jest Test Block": {
+      "prefix": "jt",
+      "body": [
+        "describe('${1:unit under test}', () => {",
+        "  it('${2:should do something}', () => {",
+        "    $3",
+        "  });",
+        "});"
+      ],
+      "description": "Scaffold a Jest describe/it test block"
+    }
+  }

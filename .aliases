@@ -1,0 +1,25 @@
+# Origen Project Aliases
+# Source this file in your shell config: source /home/lizwe/wind/.aliases
+
+# Database Management
+alias db-start='cd /home/lizwe/wind && ./scripts/dev-db.sh start'
+alias db-stop='cd /home/lizwe/wind && ./scripts/dev-db.sh stop'
+alias db-reset='cd /home/lizwe/wind && ./scripts/dev-db.sh reset'
+alias db-migrate='cd /home/lizwe/wind && ./scripts/dev-db.sh migrate'
+alias db-pgadmin='cd /home/lizwe/wind && ./scripts/dev-db.sh pgadmin'
+alias db-logs='cd /home/lizwe/wind && ./scripts/dev-db.sh logs'
+
+# Environment Switching
+alias env-local='cd /home/lizwe/wind && ./scripts/switch-env.sh local'
+alias env-supabase='cd /home/lizwe/wind && ./scripts/switch-env.sh supabase'
+
+# Quick Development Workflows
+alias dev-start='cd /home/lizwe/wind && env-local && db-start && echo "✓ Development environment ready!"'
+alias dev-fresh='cd /home/lizwe/wind && db-reset && echo "✓ Fresh development environment ready!"'
+alias dev-status='cd /home/lizwe/wind && ./scripts/switch-env.sh && docker ps --filter "name=origen"'
+
+# Project Navigation
+alias cdw='cd /home/lizwe/wind'
+alias cdws='cd /home/lizwe/wind/apps/server'
+alias cdww='cd /home/lizwe/wind/apps/web'
+alias cdwm='cd /home/lizwe/wind/packages/models'

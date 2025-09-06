@@ -1,0 +1,73 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum SourceType {
+  OCR
+  MANUAL
+}
+
+enum CurrencyCode {
+  USD
+  EUR
+  ZAR
+  GBP
+  // extend per supported locales
+}
+
+model User {
+  id           String     @id @default(cuid())
+  name         String
+  email        String     @unique
+  passwordHash String
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+  receipts     Receipt[]
+}
+
+model Receipt {
+  id           String       @id @default(cuid())
+  user         User         @relation(fields: [userId], references: [id])
+  userId       String
+  sourceType   SourceType
+  merchant     String?
+  purchaseDate DateTime?
+  currency     CurrencyCode?
+  total        Decimal?     @db.Decimal(10,2)
+  tax          Decimal?     @db.Decimal(10,2)
+  notes        String?
+  ocrData      Json?
+  fileUrl      String?
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+  items        LineItem[]
+  transaction  Transaction?
+}
+
+model LineItem {
+  id          String   @id @default(cuid())
+  receipt     Receipt  @relation(fields: [receiptId], references: [id])
+  receiptId   String
+  description String
+  quantity    Int
+  unitPrice   Decimal  @db.Decimal(10,2)
+  total       Decimal  @db.Decimal(10,2)
+}
+
+model Transaction {
+  id        String   @id @default(cuid())
+  receipt   Receipt  @relation(fields: [receiptId], references: [id])
+  receiptId String   @unique
+  bankRef   String?
+  amount    Decimal  @db.Decimal(10,2)
+  date      DateTime
+  category  String?
+}

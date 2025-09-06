@@ -1,0 +1,25 @@
+{
+  "name": "origen",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Receipt management app with OCR and manual entry",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "yarn build:packages && yarn workspaces foreach -A -pi run dev",
+    "build": "yarn build:packages",
+    "build:packages": "yarn workspace @origen/models run build && yarn workspace @origen/utils run build && yarn workspace @origen/state run build",
+    "test": "yarn workspaces foreach -A -pt run test",
+    "lint": "yarn workspaces foreach -A -pt run lint",
+    "type-check": "yarn workspaces foreach -A -pt run type-check"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "eslint": "^8.55.0",
+    "prettier": "^3.1.0",
+    "typescript": "^5.3.0"
+  },
+  "packageManager": "yarn@4.0.2"
+}
