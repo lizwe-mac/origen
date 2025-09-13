@@ -23,7 +23,7 @@ case "$1" in
     docker-compose up -d postgres
     sleep 5
     echo "Running Prisma migration..."
-    cd ../packages/models
+    cd "$(dirname "$0")/../packages/models"
     cp .env.local .env
     npx prisma generate
     npx prisma db push
@@ -32,7 +32,7 @@ case "$1" in
   
   migrate)
     echo "Running database migration..."
-    cd ../packages/models
+    cd "$(dirname "$0")/../packages/models"
     cp .env.local .env
     npx prisma generate
     npx prisma db push

@@ -3,11 +3,12 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { AuthForm } from './components/AuthForm';
 import { ReceiptList } from './components/ReceiptList';
 import { ManualReceiptForm } from './components/ManualReceiptForm';
+import { ReceiptDetail } from './components/ReceiptDetail';
 import { Receipt } from '@origen/models';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [currentView, setCurrentView] = useState<'list' | 'manual' | 'upload'>('list');
+  const [currentView, setCurrentView] = useState<'list' | 'manual' | 'upload' | 'detail'>('list');
   const [selectedReceipt, setSelectedReceipt] = useState<Receipt | null>(null);
 
   useEffect(() => {
@@ -45,6 +46,11 @@ function App() {
     console.log('Selected receipt:', receipt);
   };
 
+  const handleViewReceipt = (receipt: Receipt) => {
+    setSelectedReceipt(receipt);
+    setCurrentView('detail');
+  };
+
   if (!isAuthenticated) {
     return <AuthForm onSuccess={handleAuthSuccess} />;
   }
@@ -74,6 +80,7 @@ function App() {
             onAddManual={handleAddManual}
             onUpload={handleUpload}
             onSelectReceipt={handleSelectReceipt}
+            onViewReceipt={handleViewReceipt}
           />
         )}
 
@@ -111,6 +118,13 @@ function App() {
               </p>
             </div>
           </div>
+        )}
+
+        {currentView === 'detail' && selectedReceipt && (
+          <ReceiptDetail
+            receipt={selectedReceipt}
+            onBack={handleBackToList}
+          />
         )}
       </main>
     </div>
